@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Movie;
 
+use App\Genre;
+
 class MovieController extends Controller
 {
     // protected $movies = [
@@ -44,8 +46,10 @@ class MovieController extends Controller
     public function show ($id)
     {
         $movie = Movie::find($id);
-        
-        return view('Movie.movie')->with('movie', $movie);
+        $genre = Genre::where('id', $movie->genre_id)->first();
+        if (!empty($movie)) {
+        return view('Movie.movie')->with('movie', $movie)->with('genre', $genre);
+        }
         return redirect()->back();
     }
 

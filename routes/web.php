@@ -37,11 +37,12 @@ Route::get('/actors/search', 'ActorController@search');
 
 Route::get('/genres', 'GenreController@index');
 
-Route::get('/genres/{id}', 'GenreController@show');
+Route::get('/genre/{id}', 'GenreController@show');
 
 Route::get('/genres/new', 'GenreController@create');
 
 Route::post('/genres/new)', 'GenreController@store');
+
 
 
 

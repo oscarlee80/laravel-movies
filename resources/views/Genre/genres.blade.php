@@ -1,18 +1,18 @@
 @extends ('master')
 @section('title')
-Genres
+Generos
 @endsection
 @section('content')
 <section>
     <ul>
-        @forelse ($genres as $key => $genre)
-        <li>{{$genres[$key]}}</li>
+        @forelse ($genres as $genre)
+        <li><a href="/genre/{{$genre->id}}">{{$genre->name}}</a></li>
         @empty
         No hay Resultados
         @endforelse
     </ul>
 </section>
 <section>
-        <a href="/">VOLVER</a>
+    <a href="/" class="btn btn-info">VOLVER</a>
 </section>
 @endsection
