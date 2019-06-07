@@ -7,19 +7,18 @@
 <section>
     <h2>Nombre: {{$actor->getNombreCompleto()}}</h2>
     <h3>Puntaje: {{$actor->rating}}</h3>
-    <h3>Peliculas:
+    <h3>Peliculas:</h3>
+    <h4>
     @if (!empty($movies))
         <ul>
-            {{dd($movies)}}
             @foreach ($movies as $movie)
-                {{$movie}}
+                <li>{{$movie->title}}</li>
             @endforeach
-            {{dd($movie)}}
         </ul>
     @else
     No tiene peliculas asociadas.
     @endif
-    </h3>
+    </h4>
 </section>
 
 <section>

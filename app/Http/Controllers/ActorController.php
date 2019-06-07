@@ -10,6 +10,8 @@ use App\Movie;
 
 use App \Actor_Movie;
 
+use DB;
+
 class ActorController extends Controller
 {
     // protected $actors = [
@@ -39,26 +41,28 @@ class ActorController extends Controller
     public function show ($id)
     {
         $actor = Actor::find($id);
-        $moviesfound = Actor_Movie::where('actor_id', $id)->get();
-        if (!empty($moviesfound)) {
-            foreach ($moviesfound as $pelis) {
-                $idmovies[] = $pelis->movie_id;
-            }
-            foreach ($idmovies as $idmovie) {
-                $movies[] = Movie::where('id', $idmovie)->get();
-            }
-        }
-        return view('Actor.actor')->with('actor', $actor)->with('movies', $movies);
         
-        // foreach ($actors as $actor) {
-        //     if($actor['id'] == $id) {
-                // return view('Actor.actor')->with('actor', $actor);
-        //     }
-        // }
-
+        if (empty($actor)) {
         return redirect()->back();
+        }
+        
+        $actorMovie = DB::table('actor_movie')->get();
+ 
+        foreach($actorMovie as $register) {
+            if ($register->actor_id == $actor->id)
+            $movies[] = Movie::find($register->movie_id);
+        }
+        
+        if (!empty($movies)) {
+            return view('Actor.actor')->with('actor', $actor)->with('movies', $movies);
+        }
+
+        if (!empty($actor)) {
+            return view('Actor.actor')->with('actor', $actor);
+        }
+
     }
-    
+
     public function create ()
     {
         return view('Actor.create');
