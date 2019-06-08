@@ -8,8 +8,6 @@ use App\Actor;
 
 use App\Movie;
 
-use App \Actor_Movie;
-
 use DB;
 
 class ActorController extends Controller
@@ -43,7 +41,7 @@ class ActorController extends Controller
         $actor = Actor::find($id);
         
         if (empty($actor)) {
-        return redirect()->back();
+        return redirect("/actors");
         }
         
         $actorMovie = DB::table('actor_movie')->get();
@@ -57,9 +55,7 @@ class ActorController extends Controller
             return view('Actor.actor')->with('actor', $actor)->with('movies', $movies);
         }
 
-        if (!empty($actor)) {
-            return view('Actor.actor')->with('actor', $actor);
-        }
+        return view('Actor.actor')->with('actor', $actor);
 
     }
 
@@ -73,21 +69,22 @@ class ActorController extends Controller
         //
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $trim = trim($_GET['search']);
-
+        $busqueda = $request->search;
         //Si hay espacios entre las palabras de nuestra query entra a este if
-        if (strpos($trim,' ') == true) { 
-            $nombre = explode(' ', $_GET['search']);
-            $search = Actor::where('first_name', 'LIKE', "%$nombre[0]%")
-                            ->where('last_name','LIKE', "%$nombre[1]%")
+        if (strpos($busqueda,' ') == true) { 
+            $nombre = explode(' ', $busqueda);
+            $first_name = ucwords(strtolower($nombre[0]));
+            $last_name = ucwords(strtolower($nombre[1]));
+            $search = Actor::where('first_name', 'LIKE', "%$first_name%")
+                            ->orwhere('last_name','LIKE', "%$last_name%")
                             ->get();
             return view('Actor.actors')->with('actors', $search);
         }
         //Se ejecuta si ingresamos una sola palabra en la query
-        $search = Actor::where('first_name', 'LIKE', "%$trim%") 
-                        ->orwhere('last_name', 'LIKE', "%$trim%")
+        $search = Actor::where('first_name', 'LIKE', "%$busqueda%") 
+                        ->orwhere('last_name', 'LIKE', "%$busqueda%")
                         ->get();
         return view('Actor.actors')->with('actors', $search);
     }
