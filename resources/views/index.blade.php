@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
-    <p><a href="/movies">Peliculas</a></p>
-    <p><a href="/actors">Actores</a></p>
-    <p><a href="/genres">Generos</a></p>
+    <h2><a href="/movies" class="btn btn-info">Peliculas</a></h2>
+    <br>
+    <h2><a href="/actors"class="btn btn-success">Actores</a></h2>
+    <br>
+    <h2><a href="/genres" class="btn btn-dark">Generos</a></h2>
 @endsection

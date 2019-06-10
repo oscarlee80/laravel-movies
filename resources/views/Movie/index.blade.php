@@ -13,6 +13,8 @@ Movies
         @endforelse
     </ul>
 </section>
+
+
 <section>
         <a href="/">VOLVER</a>
 </section>

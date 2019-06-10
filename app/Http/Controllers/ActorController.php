@@ -12,24 +12,6 @@ use DB;
 
 class ActorController extends Controller
 {
-    // protected $actors = [
-    //     0 => [
-    //         "name" => "Jorge Porcel",
-    //         "awards" => 0,
-    //         "best_movie" => null
-    //     ],
-    //     1 => [        
-    //         "name" => "Robert Patrick",
-    //         "awards" => 0,
-    //         "best_movie" => "Terminator 2"
-    //     ],
-    //     2 => [
-    //         "name" => "Sam Neill",
-    //         "awards" => 1,
-    //         "best_movie" => "Jurassic Park"
-    //     ]
-    // ];
-
     public function index ()
     {
         $actors = Actor::all();
@@ -64,9 +46,42 @@ class ActorController extends Controller
         return view('Actor.create');
     }
 
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        //
+        $nombres = Actor::all();
+
+        foreach ($nombres as $nombre) {
+            $nombreCompleto = $nombre->getNombreCompleto();
+            $nombreRecibido = $request->input('first_name')." ".$request->input('last_name');
+            if ($nombreCompleto == $nombreRecibido) {
+                $error = "Ese actor ya se encuentra registrado";
+                return view('Actor.create')->with('error', $error);
+            }
+        } 
+
+        $reglas = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string',
+            'rating' => 'required|numeric'
+        ];
+        
+        $mensaje = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'integer' => 'El campo :attribute debe ser un numero entero.',
+            'numeric' => 'El campo :attribute debe ser un numero.'
+        ];
+
+        $this->validate($request, $reglas, $mensaje);
+
+        $request->request->remove('submit');
+        $request->request->remove('favorite_movie_id');
+
+        $actor = new Actor($request->all());
+
+        $actor->save();
+
+        return redirect('/actors');
+        
     }
 
     public function search(Request $request)
@@ -87,5 +102,35 @@ class ActorController extends Controller
                         ->orwhere('last_name', 'LIKE', "%$busqueda%")
                         ->get();
         return view('Actor.actors')->with('actors', $search);
+    }
+    
+    public function edit ($id) {
+
+        $actor = Actor::find($id);
+
+        if (empty($actor)) {
+            return redirect("/actors");
+            }
+        
+        return view('Actor.edit')->with('actor', $actor);
+    }
+
+    public function update (Request $request) {
+
+        $actor = Actor::find($request->id);
+        
+        $actor->first_name = $request->input('first_name');
+        $actor->last_name = $request->input('last_name');
+        $actor->rating = $request->input('rating');
+        $actor->save();
+        
+        return view('Actor.actor')->with('actor', $actor);
+    }
+
+    public function destroy ($id) {
+        
+        $actor = Actor::destroy($id);
+        
+        return redirect("/actors");
     }
 }
