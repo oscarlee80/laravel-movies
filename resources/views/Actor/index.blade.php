@@ -7,13 +7,10 @@ Actors
     <ul>
         @forelse ($actors as $actor)
         <li>{{$actor['name']}}</li>
-        @empty
-        No hay Resultados
-        @endforelse
+        @endforeach
     </ul>
 </section>
 <section>
-        <a href="/">VOLVER</a>
+    <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
 </section>
-    
 @endsection

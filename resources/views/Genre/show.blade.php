@@ -1,14 +1,17 @@
 @extends ('master')
 
 @section('title')
-{{$genre}}
+{{$genre->name}}
 @endsection
-
 @section('content')
 <section>
-    <h2>{{$genre}}</h2>
+    <ul> 
+        @foreach ($genre->movies as $movie)
+        <li><a href="../movies/{{$movie->id}}">{{$movie->title}}</a></li>
+        @endforeach
+    </ul>
 </section>
 <section>
-        <a href="/genres">VOLVER</a>
-    </section>
+    <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
+</section>
 @endsection

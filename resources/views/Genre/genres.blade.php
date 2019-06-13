@@ -3,19 +3,19 @@
 Generos
 @endsection
 @section('content')
-<h1>Generos</h1>
-<hr>
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+    {{ session('error') }}
+</div>
+@endif
 <section>
     <ul>
-        @forelse ($genres as $genre)
-        <li><a href="/genre/{{$genre->id}}">{{$genre->name}}</a></li>
-        @empty
-        No hay Resultados
-        @endforelse
+        @foreach ($genres as $genre)
+        <li><a href="/genres/{{$genre->id}}">{{$genre->name}}</a></li>
+        @endforeach
     </ul>
 </section>
 <hr>
 <section>
-    <a href="/" class="btn btn-info">VOLVER</a>
-</section>
+    <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
 @endsection

@@ -6,7 +6,7 @@ Edit - {{$actor->getNombreCompleto()}}
 @section('content')
 <h1>Modificar Datos</h1>
 <article>
-    <form method="POST" action="/actor/{{$actor->id}}">
+    <form method="POST" action="/actors/{{$actor->id}}">
         @method('PUT')
         @csrf
         <div>
@@ -27,7 +27,7 @@ Edit - {{$actor->getNombreCompleto()}}
 </article>
 <hr>
 <section>
-        <a href="/actor/{{$actor->id}}" class="btn btn-info">VOLVER</a>
+    <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
 </section>
 <section>
 @endsection

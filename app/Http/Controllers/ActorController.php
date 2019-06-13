@@ -21,24 +21,19 @@ class ActorController extends Controller
     public function show ($id)
     {
         $actor = Actor::find($id);
-        
         if (empty($actor)) {
         return redirect("/actors");
         }
+        return view('Actor.show')->with('actor', $actor);
         
-        $actorMovie = DB::table('actor_movie')->get();
- 
-        foreach($actorMovie as $register) {
-            if ($register->actor_id == $actor->id)
-            $movies[] = Movie::find($register->movie_id);
-        }
-        
-        if (!empty($movies)) {
-            return view('Actor.actor')->with('actor', $actor)->with('movies', $movies);
-        }
-
-        return view('Actor.actor')->with('actor', $actor);
-
+        // $actorMovie = DB::table('actor_movie')->get(); 
+        // foreach($actorMovie as $register) {
+        //     if ($register->actor_id == $actor->id)
+        //     $movies[] = Movie::find($register->movie_id);
+        // }        
+        // if (!empty($movies)) {
+        //     return view('Actor.actor')->with('actor', $actor)->with('movies', $movies);
+        // }
     }
 
     public function create ()
@@ -124,7 +119,7 @@ class ActorController extends Controller
         $actor->rating = $request->input('rating');
         $actor->save();
         
-        return view('Actor.actor')->with('actor', $actor);
+        return view('Actor.show')->with('actor', $actor);
     }
 
     public function destroy ($id) {

@@ -5,7 +5,11 @@ Movies
 @endsection
 
 @section('content')
-<h1>Peliculas</h1>
+@if(session('error'))
+<div class="alert alert-danger" role="alert">
+    {{ session('error') }}
+</div>
+@endif
 <div class="md-form mt-0">
     @if (!isset($_GET['search'])) 
     <form action="movies/search" method="get">
@@ -24,17 +28,15 @@ Movies
         <a href="/movies" class="btn btn-info">LIMPIAR</a>
         @endif
         @if (!isset($_GET['search']))
-        <a href="/" class="btn btn-info">VOLVER</a>
+        <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
         @endif
 </section>
 <hr>
 <section>
     <ul>
-        @forelse ($movies as $movie)
-        <li><a href="/movie/{{$movie->id}}">{{$movie->title}}</a></li>
-        @empty
-        No hay Resultados
-        @endforelse
+        @foreach ($movies as $movie)
+        <li><a href="/movies/{{$movie->id}}">{{$movie->title}}</a></li>
+        @endforeach
     </ul>
 </section>
 

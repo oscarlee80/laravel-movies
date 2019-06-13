@@ -2,52 +2,35 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/catalogo', 'HomeController@catalogo');
+//Movies
+Route::group(['prefix' => 'movies'], function() {
+    Route::get('/', 'MovieController@index');
+    Route::get('/create', 'MovieController@create');
+    Route::post('/create', 'MovieController@store');
+    Route::get('/search', 'MovieController@search');
+    Route::get('/{id}','MovieController@show');
+});
 
-Route::get('/producto/{id}', 'HomeController@mostrarProducto');
+//Actors
+Route::group(['prefix' => 'actors'], function() {
+    Route::get('/', 'ActorController@index');
+    Route::get('/create', 'ActorController@create');
+    Route::post('/create', 'ActorController@store');
+    Route::get('/search', 'ActorController@search');
+    Route::get('/{id}/edit', 'ActorController@edit');
+    Route::put('/{id}', 'ActorController@update');
+    Route::delete('/{id}', 'ActorController@destroy');
+    Route::get('/{id}', 'ActorController@show');
+});
 
-// Ejercitacion
+//Generos
+Route::group(['prefix' => 'genres'], function() {
+    Route::get('/', 'GenreController@index');
+    Route::get('/create', 'GenreController@create');
+    Route::post('/create', 'GenreController@store');
+    Route::get('/{id}', 'GenreController@show');
+});
 
-// Movie
-
-Route::get('/movies', 'MovieController@index');
-
-Route::get('/movie/{id}', 'MovieController@show');
-
-Route::get('/movies/search', 'MovieController@search');
-// Devuelve el form
-Route::get('/movies/create', 'MovieController@create');
-// Procesa el form
-Route::post('/movies/create', 'MovieController@store');
-
-// Actor
-
-Route::get('/actors', 'ActorController@index');
-
-Route::get('/actor/{id}', 'ActorController@show');
-
-Route::get('/actors/search', 'ActorController@search');
-// Devuelve el form
-Route::get('/actors/create', 'ActorController@create');
-// Procesa el form
-Route::post('/actors/store', 'ActorController@store');
-
-Route::get('/actor/{id}/edit', 'ActorController@edit');
-
-Route::put('/actor/{id}', 'ActorController@update');
-
-Route::delete('/actor/{id}', 'ActorController@destroy');
-
-
-// Genre
-
-Route::get('/genres', 'GenreController@index');
-
-Route::get('/genre/{id}', 'GenreController@show');
-
-Route::get('/genres/new', 'GenreController@create');
-
-Route::post('/genres/new)', 'GenreController@store');
 
 
 

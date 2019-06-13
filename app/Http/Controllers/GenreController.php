@@ -27,10 +27,14 @@ class GenreController extends Controller
     {
         $genre = Genre::find($id);
 
-        if (!empty($genre)) {
-        return view('Genre.genre')->with('genre', $genre);
+        if(empty($genre->movies)) {
+            return redirect()
+                ->back()
+                ->with('error', 'No hay peliculas de ' . $genre->name);
         }
-        return redirect()->back();
+
+        return view('Genre.show')->with('genre', $genre);
+        
     }
 
     public function create ()

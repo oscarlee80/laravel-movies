@@ -20,15 +20,17 @@ class MovieController extends Controller
     public function show ($id)
     {
         $movie = Movie::find($id);
-        if (!empty($movie)) {
-        return view('Movie.movie')->with('movie', $movie);
+        if(empty($movie)) {
+            return redirect()
+                ->back()
+                ->with('error', 'No hay resultados');
         }
-        return redirect()->back();
+        return view('Movie.show')->with('movie', $movie);
     }
     
     public function create ()
     {
-        return view('Movie.createMovie');
+        return view('Movie.create');
     }
 
     public function store(Request $request)

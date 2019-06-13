@@ -16,12 +16,12 @@
     <h3>Actores: </h3>    
         <ul>
             @foreach ($movie->actors as $actor)
-                <li>{{$actor->getNombreCompleto()}}</li>
+                <li><a href="../actors/{{$actor->id}}">{{$actor->getNombreCompleto()}}</a></li>
             @endforeach
         </ul>
     
 </section>
 <section>
-        <a href="/movies" class="btn btn-info">VOLVER</a>
+    <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
 </section>
 @endsection

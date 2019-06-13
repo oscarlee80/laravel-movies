@@ -16,6 +16,6 @@ Movies
 
 
 <section>
-        <a href="/">VOLVER</a>
+    <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
 </section>
 @endsection
