@@ -1,7 +1,7 @@
 <div class="row">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">
-            <img src="https://www.digitalhouse.com/wp-content/themes/dh/assets/img/header-logo.png" alt="">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-info">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-film"></i>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,6 +21,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/backoffice">Administrar</a>
                 </li>
+                <form class="form-inline" action="/results">
+                    <input class="form-control mr-sm-2" type="search" name="search" aria-label="Search" style="margin-left : 20px">
+                    <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </ul>
         </div>
     </nav>

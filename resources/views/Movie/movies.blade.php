@@ -1,43 +1,25 @@
 @extends ('master')
-
 @section('title')
-Movies
+Peliculas
 @endsection
-
 @section('content')
 @if(session('error'))
 <div class="alert alert-danger" role="alert">
     {{ session('error') }}
 </div>
 @endif
-<div class="md-form mt-0">
-    @if (!isset($_GET['search'])) 
-    <form action="movies/search" method="get">
-        <input type="text" name="search">
-        <button type="submit" class="btn peach-gradient">Search</button>
-    </form>
-    @endif
+<b><h2 style="margin-left : 85px">P E L I C U L A S</h2></b>
+<hr align="left" width="380px">
+<div class="d-flex md-form mt-0" style="margin-left : 115px">
+    <a href="/" class="btn btn-primary btn-lg" role ="button" style="margin-left : 15px"><i class="fas fa-arrow-left"></i></a>
+    <a href="/movies/create" class="btn btn-success btn-lg " style="margin-left : 15px"><i class="fas fa-plus-square"></i></a>
 </div>
-<hr>
+<hr align="left" width="380px">
 <section>
-        <a href="/movies/create" class="btn btn-info">AGREGAR PELICULA</a>
-</section>
-<br>
-<section>
-        @if (isset($_GET['search']))
-        <a href="/movies" class="btn btn-info">LIMPIAR</a>
-        @endif
-        @if (!isset($_GET['search']))
-        <a href="#" onclick="history.back();" class="btn btn-info">VOLVER</a>
-        @endif
-</section>
-<hr>
-<section>
-    <ul>
+    <ul class="list-group" style = "margin-left : 25px">
         @foreach ($movies as $movie)
-        <li><a href="/movies/{{$movie->id}}">{{$movie->title}}</a></li>
+        <a href="/movies/{{$movie   ->id}}" class="list-group-item list-group-item-warning" style="width : 330px">{{$movie->title}}</a>
         @endforeach
     </ul>
 </section>
-
 @endsection

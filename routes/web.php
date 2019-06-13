@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', 'HomeController@index');
+Route::get('/results', 'SearchController@search');
 
 //Movies
 Route::group(['prefix' => 'movies'], function() {

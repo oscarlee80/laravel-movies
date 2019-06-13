@@ -13,7 +13,7 @@ class MovieController extends Controller
 
     public function index ()
     {
-        $movies = Movie::all();
+        $movies = Movie::all()->sortBy('title');
         return view('Movie.movies')->with('movies', $movies);
     }
 
@@ -76,9 +76,9 @@ class MovieController extends Controller
 
     public function search()
     {
-        $trim = trim($_GET['search']);
-        $search = Movie::where('title', 'LIKE', "%$trim%")
-                         ->get();
-        return view('Movie.movies')->with('movies', $search);
+        // $trim = trim($_GET['search']);
+        // $search = Movie::where('title', 'LIKE', "%$trim%")
+        //                  ->get();
+        // return view('Movie.movies')->with('movies', $search);
     }
 }    

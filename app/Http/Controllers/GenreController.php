@@ -19,7 +19,7 @@ class GenreController extends Controller
 
     public function index ()
     {
-        $genres = Genre::all();
+        $genres = Genre::all()->sortBy('name');
         return view('Genre.genres')->with('genres', $genres);
     }
     
@@ -42,8 +42,29 @@ class GenreController extends Controller
         return view('Genre.create');
     }
 
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        //
+        
+        $reglas = [
+            'name' => 'unique:genres|required|string|max:255',
+            'ranking' => 'unique:genres|required|integer',
+            'active' => 'required|integer'
+        ];
+        
+        $mensaje = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'integer' => 'El campo :attribute debe ser un numero entero.',
+            'unique' => 'El campo :attribute ya está registrado.'
+        ];
+
+        $this->validate($request, $reglas, $mensaje);
+
+        $request->request->remove('submit');
+
+        $genre = new Genre($request->all());
+
+        $genre->save();
+
+        return redirect('/genres');
     }
 }

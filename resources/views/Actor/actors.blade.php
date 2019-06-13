@@ -1,26 +1,20 @@
 @extends ('master')
 @section('title')
-Actors
+Actores
 @endsection
 @section('content')
-<div class="d-flex md-form mt-0">
-    <a href="#" onclick="history.back();" class="btn btn-primary btn-lg" role ="button" style="margin-left : 15px"><i class="fas fa-arrow-left"></i></a>
+<b><h2 style="margin-left : 100px">A C T O R E S</h2></b>
+<hr align="left" width="380px">
+<div class="d-flex md-form mt-0" style="margin-left : 115px">
+    <a href="/" class="btn btn-primary btn-lg" role ="button" style="margin-left : 15px"><i class="fas fa-arrow-left"></i></a>
     <a href="/actors/create" class="btn btn-success btn-lg " style="margin-left : 15px"><i class="fas fa-user-plus"></i></a>
-    @if (!isset($_GET['search'])) 
-    <form action="actors/search" method="get" style= "margin-left : 15px; margin-top:7px">
-        <input type="text" name="search">
-        <button type="submit" class="btn peach-gradient">Search</button>
-    </form>
-    @endif
 </div>
-<hr>
+<hr align="left" width="380px">
 <section>
-    @if (isset($_GET['search']))
-    <h4>Resultados de : {{$_GET['search']}}</h4>
-    @endif
-    <ul class="list-group">
+    <ul class="list-group" style = "margin-left : 25px">
         @foreach ($actors as $actor)
-        <a href="/actors/{{$actor->id}}" class="list-group-item" style="width : 13%">{{$actor->getNombreCompleto()}}</a>
+        <a href="/actors/{{$actor->id}}" class="list-group-item list-group-item-info" style="width : 330px">{{$actor->getNombreCompleto()}}</a>
         @endforeach
     </ul>
+</section>
 @endsection
