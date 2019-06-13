@@ -20,13 +20,12 @@ class MovieController extends Controller
     public function show ($id)
     {
         $movie = Movie::find($id);
-        $genre = Genre::where('id', $movie->genre_id)->first();
         if (!empty($movie)) {
-        return view('Movie.movie')->with('movie', $movie)->with('genre', $genre);
+        return view('Movie.movie')->with('movie', $movie);
         }
         return redirect()->back();
     }
-
+    
     public function create ()
     {
         return view('Movie.createMovie');
@@ -34,7 +33,6 @@ class MovieController extends Controller
 
     public function store(Request $request)
     {
-
 
         $reglas = [
             'title' => 'required|string|max:255|unique:movies,title',
@@ -60,7 +58,7 @@ class MovieController extends Controller
         $anio = $request->input('anio');
         $date = date_create($dia . '-' . $mes . '-' . $anio);
         $release_date = date_format($date, "Y-m-d H:i:s");
-
+        dd($date);
         $request->request->remove('dia');
         $request->request->remove('mes');
         $request->request->remove('anio');

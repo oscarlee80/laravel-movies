@@ -5,9 +5,9 @@
 @endsection
 @section('content')
 <section>
-    <ul>
-        @forelse ($movies as $movie)
-        <li>{{$movie->title}}</li>
+    <ul> 
+        @forelse ($genre->movies as $movie)
+        <li><a href="../movie/{{$movie->id}}">{{$movie->title}}</a></li>
         @empty
         No hay Resultados
         @endforelse

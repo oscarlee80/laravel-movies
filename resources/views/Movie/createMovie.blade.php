@@ -34,6 +34,14 @@
                 <input type="text" name="length" value="{{ old('length') }}" />
             </div>
             <div>
+                <label>Genero</label>
+                <select name="genre">
+                    <option value="{{ old('genre') }}">Genero</option>
+                    
+                    <option value=""></option>
+                    
+                </select>
+            <div>
                 <label>Fecha de Estreno</label>
                 <select name="dia">
                     <option value="{{ old('dia') }}">Dia</option>

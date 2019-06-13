@@ -10,6 +10,7 @@
         <h2>Titulo: {{$movie->title}}</h2>
         <h3>Premios: {{$movie->awards}}</h3>
         <h3>Duracion: {{$movie->length}} minutos</h3>
+        <h3>Genero: {{$movie->genre->name}} minutos</h3>
     </section>
     <section>
         <a href="/actors" class="btn btn-info">VOLVER</a>

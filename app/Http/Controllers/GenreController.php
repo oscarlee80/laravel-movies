@@ -25,10 +25,10 @@ class GenreController extends Controller
     
     public function show ($id)
     {
-        $movies = Movie::where('genre_id', $id)->get();
         $genre = Genre::find($id);
+
         if (!empty($genre)) {
-        return view('Genre.genre')->with('genre', $genre)->with('movies', $movies);
+        return view('Genre.genre')->with('genre', $genre);
         }
         return redirect()->back();
     }
