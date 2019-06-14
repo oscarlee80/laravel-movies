@@ -20,7 +20,7 @@ class ActorController extends Controller
 
     public function show ($id)
     {
-        $actor = Actor::find($id);
+        $actor = Actor::find($id);        
         if (empty($actor)) {
         return redirect("/actors");
         }

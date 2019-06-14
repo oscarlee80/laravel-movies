@@ -10,12 +10,6 @@ use App\Movie;
 
 class GenreController extends Controller
 {
-    // protected $genres = [
-    //     1 => "Comedia",
-    //     2 => "Accion",
-    //     3 => "Ciencia Ficcion",
-    //     4 => "Terror"
-    // ];
 
     public function index ()
     {
