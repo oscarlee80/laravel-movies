@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     protected $guarded = [];
+    
+    public function fechaDeEstreno()
+    {
+        $fecha = explode(' ', $this->release_date);
+        return $fecha[0];
+    }
 
     public function genre () 
     {

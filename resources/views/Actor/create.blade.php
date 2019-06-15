@@ -46,5 +46,4 @@
         <button type="submit" class="btn btn-success" style="margin-left : 15px">Agregar actor</button>
     </div>
 </form>
-
 @endsection

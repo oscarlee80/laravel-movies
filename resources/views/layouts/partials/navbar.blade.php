@@ -13,13 +13,13 @@
                     <a class="nav-link" href="/movies">Peliculas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/actors">Actores</a>
+                    <a class="nav-link" href="/series">Series</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/genres">Generos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/backoffice">Administrar</a>
+                    <a class="nav-link" href="/actors">Actores</a>
                 </li>
                 <form class="form-inline" action="/results">
                     <input class="form-control mr-sm-2" type="search" name="search" aria-label="Search" style="margin-left : 20px">

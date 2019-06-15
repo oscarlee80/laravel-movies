@@ -61,4 +61,33 @@ class GenreController extends Controller
 
         return redirect('/genres');
     }
+
+    public function edit ($id) {
+
+        $genre = Genre::find($id);
+
+        if (empty($genre)) {
+            return redirect("/genres");
+            }
+        
+        return view('Genre.edit')->with('genre', $genre);
+    }
+
+    public function update (Request $request) {
+
+        $genre = Genre::find($request->id);
+        $genre->name = $request->input('name');
+        $genre->ranking = $request->input('ranking');
+        $genre->active = $request->input('active');
+        $genre->save();
+        
+        return view('Genre.show')->with('genre', $genre);
+    }
+
+    public function destroy ($id) {
+        
+        $genre = Genre::destroy($id);
+        
+        return redirect("/genres");
+    }
 }

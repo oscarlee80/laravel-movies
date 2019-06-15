@@ -22,4 +22,9 @@ class Actor extends Model
     {
         return $this->belongsTo(Movie::class, 'favorite_movie_id');
     }
+
+    public function series() 
+    {
+        return $this->belongsToMany(Serie::class);
+    }
 }

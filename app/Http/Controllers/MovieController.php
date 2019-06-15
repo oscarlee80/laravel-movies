@@ -10,7 +10,6 @@ use App\Genre;
 
 class MovieController extends Controller
 {
-
     public function index ()
     {
         $movies = Movie::all()->sortBy('title');
@@ -20,6 +19,7 @@ class MovieController extends Controller
     public function show ($id)
     {
         $movie = Movie::find($id);
+        
         if(empty($movie)) {
             return redirect()
                 ->back()
@@ -57,11 +57,36 @@ class MovieController extends Controller
         return redirect('/movies');
     }
 
-    public function search()
-    {
-        // $trim = trim($_GET['search']);
-        // $search = Movie::where('title', 'LIKE', "%$trim%")
-        //                  ->get();
-        // return view('Movie.movies')->with('movies', $search);
-    }
+    public function edit ($id) {
+
+        $movie = Movie::find($id);
+        $genres = Genre::all();
+
+        if (empty($movie)) {
+            return redirect("/movies");
+            }
+        
+        return view('Movie.edit')->with('movie', $movie)->with('genres', $genres);
 }    
+
+    public function update (Request $request) {
+
+        $movie = Movie::find($request->id);
+        
+        $movie->title = $request->input('title');
+        $movie->rating = $request->input('rating');
+        $movie->awards = $request->input('awards');
+        $movie->length = $request->input('length');
+        $movie->genre_id = $request->input('genre_id');
+        $movie->release_date = $request->input('release_date');
+        $movie->save();
+        return view('Movie.show')->with('movie', $movie);
+    }
+
+    public function destroy ($id) {
+        
+        $movies = Movie::destroy($id);
+        return redirect("/movies");
+    }
+
+}

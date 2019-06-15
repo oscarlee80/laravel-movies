@@ -9,27 +9,38 @@ Resultados de la busqueda
 <hr align="left" width="15%">
 
 @if(empty($movies) || empty($actors))
-<div class="alert alert-danger" role="alert" style="width : 10%; margin-left : 3%">
+<div class="alert alert-danger" role="alert" style="width : 10%; margin-left : 30px">
     <h3>No hay resultados</h3>
 </div>
 @endif
-@if (count($movies) > 0)
+@if (count($movies)>0)
     <section>
-        <h3 style="margin-left : 2.5%">Peliculas encontradas</h3>
-        <ul class="list-group" style="margin-left : 1%">
+        <h3 style="margin-left : 65px">Peliculas encontradas</h3>
+        <ul class="list-group" style="margin-left : 30px">
             @foreach ($movies as $movie)
-            <li><a href="/movies/{{$movie->id}}" class="list-group-item list-group-item-warning" style="width : 13%">{{$movie->title}}</a></li>
+            <li><a href="/movies/{{$movie->id}}" class="list-group-item list-group-item-warning" style="width : 320px">{{$movie->title}}</a></li>
             @endforeach
         </ul>
     </section>
     <br>
 @endif
-@if (!empty($actors))
+@if (isset($series))
     <section>
-        <h3 style="margin-left : 2.5%">Actores encontrados</h3>
-        <ul class="list-group" style="margin-left : 1%">
+        <h3 style="margin-left : 75px">Series encontradas</h3>
+        <ul class="list-group" style="margin-left : 30px">
+            @foreach ($series as $serie)
+            <li><a href="/series/{{$serie->id}}" class="list-group-item list-group-item-warning" style="width : 320px">{{$serie->title}}</a></li>
+            @endforeach
+        </ul>
+    </section>
+    <br>
+@endif
+@if (isset($actors))
+    <section>
+        <h3 style="margin-left : 70px">Actores encontrados</h3>
+        <ul class="list-group" style="margin-left : 30px">
             @foreach ($actors as $actor)
-            <a href="/actors/{{$actor->id}}" class="list-group-item list-group-item-info" style="width : 13%">{{$actor->getNombreCompleto()}}</a>
+            <a href="/actors/{{$actor->id}}" class="list-group-item list-group-item-info" style="width : 320px">{{$actor->getNombreCompleto()}}</a>
             @endforeach
         </ul>
     </section>
