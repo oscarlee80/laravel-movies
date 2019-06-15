@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Season;
+
 class SeasonController extends Controller
 {
     /**
@@ -45,7 +47,14 @@ class SeasonController extends Controller
      */
     public function show($id)
     {
-        //
+        $season = Season::find($id);
+        
+        if(empty($season)) {
+            return redirect()
+                ->back()
+                ->with('error', 'No hay resultados');
+        }
+        return view('Season.show')->with('season', $season);
     }
 
     /**

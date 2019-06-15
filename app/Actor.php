@@ -13,7 +13,7 @@ class Actor extends Model
         return $this->first_name.' '.$this->last_name;
     }
 
-    public function movies() 
+    public function movies () 
     {
         return $this->belongsToMany(Movie::class);
     }
@@ -23,8 +23,8 @@ class Actor extends Model
         return $this->belongsTo(Movie::class, 'favorite_movie_id');
     }
 
-    public function series() 
+    public function episodes () 
     {
-        return $this->belongsToMany(Serie::class);
+        return $this->belongsToMany(Episode::class);
     }
 }

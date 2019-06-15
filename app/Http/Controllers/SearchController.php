@@ -15,7 +15,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $busqueda = $request->search;
-        $error = "No hay resultados";        
+        $error = "No hay resultados";
         $movies = Movie::where('title', 'LIKE', "%$busqueda%")->get();
         $series = Serie::where('title', 'LIKE', "%$busqueda%")->get();
 
@@ -31,32 +31,37 @@ class SearchController extends Controller
             ->orwhere('last_name', 'LIKE', "%$busqueda%")
             ->get();
         }
+        
+        if(count($movies) == 0 && count($actors) == 0 && count($series) == 0) {
+            return view('results')->with('error', $error);
+        }
 
-        if (count($movies) > 0 || count($actors) > 0 || count($series) > 0) {
+        if (count($movies) > 0 && count($actors) > 0 && count($series) > 0) {
             return view('results')->with('actors', $actors)
                                   ->with('movies', $movies)
-                                  ->with('movies', $series);
+                                  ->with('series', $series);
         }
-        if (count($movies) > 0 || count($actors) > 0 || count($series) == 0) {
+        if (count($movies) > 0 && count($actors) > 0 && count($series) == 0) {
             return view('results')->with('actors', $actors)
                                   ->with('movies', $movies);
         }
-        if (count($movies) == 0 || count($actors) > 0 || count($series) > 0) {
+        if (count($movies) == 0 && count($actors) > 0 && count($series) > 0) {
             return view('results')->with('actors', $actors)
-                                  ->with('movies', $series);
+                                  ->with('series', $series);
         }
-        if (count($movies) > 0 || count($actors) == 0 || count($series) > 0) {
+        if (count($movies) > 0 && count($actors) == 0 && count($series) > 0) {
             return view('results')->with('movies', $movies)
-                                  ->with('movies', $series);
+                                  ->with('series', $series);
         }
-        if (count($movies) > 0 || count($actors) == 0 || count($series) == 0) {
+        if (count($movies) > 0 && count($actors) == 0 && count($series) == 0) {
             return view('results')->with('movies', $movies);
         }
-        if (count($movies) == 0 || count($actors) > 0 || count($series) == 0) {
+        if (count($movies) == 0 && count($actors) > 0 && count($series) == 0) {
             return view('results')->with('actors', $actors);
         }
-        if (count($movies) == 0 || count($actors) == 0 || count($series) > 0) {
+        if (count($movies) == 0 && count($actors) == 0 && count($series) > 0) {
             return view('results')->with('series', $series);
         }
+
     }
 }

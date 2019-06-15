@@ -17,7 +17,12 @@
                 <li align="center" class="list-group-item"><b>Genero</b>
                     <a href="/genres/{{$serie->genre->id}}"><h5>{{$serie->genre->name}}</h5></li></a>
                 @endif
-                    </ul>
+                <li align="center" class="list-group-item"><b>Temporadas</b>
+                    
+                    @foreach ($serie->seasons as $season)
+                    <h6><a href="/seasons/{{$season->id}}">{{$season->title}}</a></h6>
+                    @endforeach
+                    
                 </li>
             </ul>
         </div>

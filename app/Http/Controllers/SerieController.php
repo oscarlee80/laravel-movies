@@ -13,7 +13,7 @@ class SerieController extends Controller
     public function index ()
     {
         $series = Serie::all()->sortBy('title');
-        return view('serie.series')->with('series', $series);
+        return view('Serie.series')->with('series', $series);
     }
 
     public function show ($id)

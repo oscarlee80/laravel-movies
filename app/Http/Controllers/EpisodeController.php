@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Episode;
+
 class EpisodeController extends Controller
 {
     /**
@@ -45,7 +47,14 @@ class EpisodeController extends Controller
      */
     public function show($id)
     {
-        //
+        $episode = Episode::find($id);
+        
+        if(empty($episode)) {
+            return redirect()
+                ->back()
+                ->with('error', 'No hay resultados');
+        }
+        return view('Episode.show')->with('episode', $episode);
     }
 
     /**

@@ -8,6 +8,8 @@ use App\Genre;
 
 use App\Movie;
 
+use App\Serie;
+
 class GenreController extends Controller
 {
 
@@ -21,14 +23,13 @@ class GenreController extends Controller
     {
         $genre = Genre::find($id);
 
-        if(empty($genre->movies)) {
-            return redirect()
-                ->back()
-                ->with('error', 'No hay peliculas de ' . $genre->name);
+        if (empty($genre)) {
+            return redirect('/genres');
         }
-
+        if (count($genre->movies) == 0 && count($genre->series) == 0) {
+            return view('Genre.show')->with('error', 'No hay resultados.')->with('genre', $genre);
+        }
         return view('Genre.show')->with('genre', $genre);
-        
     }
 
     public function create ()

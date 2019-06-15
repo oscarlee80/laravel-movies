@@ -22,6 +22,13 @@
                   <a href="/movies/{{$movie->id}}"><li align="center"><h5>{{$movie->title}}<h5></li></a>
                   @endforeach
           @endif
+          @if (count($actor->episodes) > 0)
+            <li align="center" class="list-group-item"><b>{{$actor->episodes[0]->season->serie->title}}</b>
+              <ul class="list-group list-group-flush">
+                  @foreach ($actor->episodes as $episode)
+                  <a href="/episodes/{{$episode->id}}"><li align="center">{{$episode->title}}</li></a>
+                  @endforeach
+          @endif
         </ul>
       </li>
     </ul>
