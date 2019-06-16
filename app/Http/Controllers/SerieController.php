@@ -56,18 +56,17 @@ class SerieController extends Controller
 
         $serie = Serie::find($id);
         $genres = Genre::all();
-
         if (empty($serie)) {
             return redirect("/series");
-            }
-        
+        }
         return view('Serie.edit')->with('serie', $serie)->with('genres', $genres);
-}    
+    }
 
-    public function update (Request $request) {
-
+    public function update (Request $request, $id)
+    {
+        $serie = Serie::find($id);
         $reglas = [
-            'title' => 'required|string|max:255|unique:series,title',
+            'title' => 'required|max:255|unique:series,title',
             'release_date' => 'required',
             'end_date' => 'required'
         ];        
@@ -85,9 +84,9 @@ class SerieController extends Controller
         return view('Serie.show')->with('serie', $serie);
     }
 
-    public function destroy ($id) {
-        
-        $serie = Serie::destroy($id);
+    public function destroy ($id)
+    {
+        $destroy = Serie::destroy($id);
         return redirect("/series");
     }
 }

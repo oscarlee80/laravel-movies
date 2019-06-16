@@ -1,5 +1,14 @@
 @extends('master')
 @section('content')
+@if($errors->any())
+    <ul>
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger" role="alert" style="width:330px; margin-left:-15px">
+            <li>{{ $error }}</li>
+        </div>
+        @endforeach
+    </ul>
+@endif
 <h2 style= "margin-left : 120px">E D I T A R</h2>
 <h2 style= "margin-left : 110px">G E N E R O</h2>
 <hr align="left" width="380px">

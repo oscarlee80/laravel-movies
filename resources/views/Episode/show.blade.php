@@ -7,14 +7,16 @@
 <div style="margin-left : 30px">
     <div align="center" class="card" style="width: 18rem" >
         <div class="card-body">
-            <h3 align="center" class="card-title">{{$episode->season->serie->title}}</h3>
-            <h4 align="center" class="card-title">{{$episode->season->title}}</h4>
-            <h5 align="center" class="card-title">{{$episode->title}}</h5>
+            <h4 align="center" class="card-title">{{$episode->season->serie->title}}</h4>
+            <h5 align="center" class="card-title">{{$episode->season->title}}</h5>
+            <h3 align="center" class="card-title">{{$episode->title}}</h3>
             <ul class="list-group list-group-flush">
+                <li align="center" class="list-group-item"><b>Numero</b>
+                    <h4>{{$episode->number}}</h4></li>
                 <li align="center" class="list-group-item"><b>Rating</b>
                     <h4>{{$episode->rating}}</h4></li>
                 <li align="center" class="list-group-item"><b>Fecha De Estreno</b>
-                    <h4>{{$episode->fechaDeEstreno()}}</h4></li>                
+                    <h4>{{$episode->fechaDeEstreno()}}</h4></li>
             </ul>
         </div>
     </div>

@@ -1,14 +1,14 @@
 @extends('master')
 @section('content')
 @if (isset($error))
-<div class="alert alert-danger" role="alert" style="width:330px; margin-left:25px">
+<div class="alert alert-danger" role="alert" style="width:330px; margin-left:-15px">
     Ese actor ya está registrado
 </div>
 @endif
 @if($errors->any())
 <ul>
     @foreach($errors->all() as $error)
-    <div class="alert alert-danger" role="alert" style="width:330px; margin-left:25px">
+    <div class="alert alert-danger" role="alert" style="width:330px; margin-left:-15px">
         <li>{{ $error }}</li>
     </div>
     @endforeach

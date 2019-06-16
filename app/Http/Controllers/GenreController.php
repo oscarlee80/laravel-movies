@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Genre;
 
-use App\Movie;
-
-use App\Serie;
-
 class GenreController extends Controller
 {
 
@@ -39,54 +35,56 @@ class GenreController extends Controller
 
     public function store(Request $request)
     {
-        
         $reglas = [
             'name' => 'unique:genres|required|string|max:255',
             'ranking' => 'unique:genres|required|integer',
             'active' => 'required|integer'
-        ];
-        
+        ];        
         $mensaje = [
             'required' => 'El campo :attribute es obligatorio.',
             'integer' => 'El campo :attribute debe ser un numero entero.',
             'unique' => 'El campo :attribute ya está registrado.'
         ];
-
         $this->validate($request, $reglas, $mensaje);
-
         $request->request->remove('submit');
-
         $genre = new Genre($request->all());
-
         $genre->save();
-
         return redirect('/genres');
     }
 
-    public function edit ($id) {
-
+    public function edit ($id)
+    {
         $genre = Genre::find($id);
-
         if (empty($genre)) {
             return redirect("/genres");
-            }
-        
+            }        
         return view('Genre.edit')->with('genre', $genre);
     }
 
-    public function update (Request $request) {
-
+    public function update (Request $request, $id)
+    {
+        $genre = Genre::find($id);
+        $reglas = [
+            'name' => 'unique:genres|required|string|max:255',
+            'ranking' => 'unique:genres|required|integer',
+            'active' => 'required|integer'
+        ];
+        $mensaje = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'integer' => 'El campo :attribute debe ser un numero entero.',
+            'unique' => 'El campo :attribute ya está registrado.'
+        ];
+        $this->validate($request, $reglas, $mensaje);
         $genre = Genre::find($request->id);
-        $genre->name = $request->input('name');
-        $genre->ranking = $request->input('ranking');
-        $genre->active = $request->input('active');
-        $genre->save();
-        
+        $genre->name = $request->input('name') !== $genre->name ? $request->input('name') : $genre->name;
+        $genre->ranking = $request->input('ranking') !== $genre->ranking ? $request->input('ranking') : $genre->ranking;
+        $genre->active = $request->input('active') !== $genre->active ? $request->input('active') : $genre->active;
+        $genre->save();        
         return view('Genre.show')->with('genre', $genre);
     }
 
-    public function destroy ($id) {
-        
+    public function destroy ($id)
+    {
         $genre = Genre::destroy($id);
         
         return redirect("/genres");

@@ -62,6 +62,5 @@ class SearchController extends Controller
         if (count($movies) == 0 && count($actors) == 0 && count($series) > 0) {
             return view('results')->with('series', $series);
         }
-
     }
 }

@@ -32,15 +32,22 @@
     </ul>
 </section>
 @endif
+@if (count($genre->movies) > 0 || count($genre->series) > 0)
+<hr align="left" width="350px">
+<div class=" d-flex" style="margin-left : 110px">
+    <a href="/genres" class="btn btn-primary btn-lg" role ="button"><i class="fas fa-arrow-left"></i></a>
+    <a href="/genres/{{$genre->id}}/edit" class="btn btn-success btn-lg" style="margin-left : 15px"><i class="fas fa-edit"></i></i></a>
+</div>
+@else
 <hr align="left" width="350px">
 <div class=" d-flex" style="margin-left : 70px">
-        <a href="/genres" class="btn btn-primary btn-lg" role ="button"><i class="fas fa-arrow-left"></i></a>
-        <a href="/genres/{{$genre->id}}/edit" class="btn btn-success btn-lg" style="margin-left : 15px"><i class="fas fa-edit"></i></i></a>
-        <form method="POST" action="{{$genre->id}}">
-            @method('DELETE')
-            @csrf
-            <button class = "btn btn-danger btn-lg" type="submit" value="BORRAR REGISTRO" style="margin-left : 15px"><i class="fas fa-trash-alt"></i></button>
-        </form>
-    </div>
-
+    <a href="/genres" class="btn btn-primary btn-lg" role ="button"><i class="fas fa-arrow-left"></i></a>
+    <a href="/genres/{{$genre->id}}/edit" class="btn btn-success btn-lg" style="margin-left : 15px"><i class="fas fa-edit"></i></i></a>
+    <form method="POST" action="{{$genre->id}}">
+        @method('DELETE')
+        @csrf
+        <button class = "btn btn-danger btn-lg" type="submit" value="BORRAR REGISTRO" style="margin-left : 15px"><i class="fas fa-trash-alt"></i></button>
+    </form>
+</div>
+@endif
 @endsection

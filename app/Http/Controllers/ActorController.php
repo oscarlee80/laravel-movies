@@ -8,8 +8,6 @@ use App\Actor;
 
 use App\Movie;
 
-use DB;
-
 class ActorController extends Controller
 {
     public function index ()
@@ -36,7 +34,6 @@ class ActorController extends Controller
     public function store(Request $request)
     {
         $nombres = Actor::all();
-
         foreach ($nombres as $nombre) {
             $nombreCompleto = $nombre->getNombreCompleto();
             $nombreRecibido = $request->input('first_name')." ".$request->input('last_name');
@@ -44,45 +41,38 @@ class ActorController extends Controller
                 $error = "Ese actor ya se encuentra registrado";
                 return view('Actor.create')->with('error', $error)->with('movies', $movies);
             }
-        } 
-
+        }
         $reglas = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string',
             'rating' => 'required|numeric',
             'favorite_movie_id' => 'required|integer'
         ];
-        
         $mensaje = [
             'required' => 'El campo :attribute es obligatorio.',
             'integer' => 'El campo :attribute debe ser un numero entero.',
             'numeric' => 'El campo :attribute debe ser un numero.'
         ];
-
         $this->validate($request, $reglas, $mensaje);
-
         $request->request->remove('submit');
-
         $actor = new Actor($request->all());
-
         $actor->save();
-
         return redirect('/actors');
     }
 
-    public function edit ($id) {
-
+    public function edit ($id)
+    {
         $actor = Actor::find($id);
         $movies = Movie::all();
         if (empty($actor)) {
             return redirect("/actors");
-            }
+        }
         return view('Actor.edit')->with('actor', $actor)->with('movies', $movies);
     }
 
-    public function update (Request $request) {
-
-        $actor = Actor::find($request->id);
+    public function update (Request $request, $id)
+    {
+        $actor = Actor::find($id);
         $nombres = Actor::all();
         $movies = Movie::all();
         $nombreRecibido = $request->input('first_name')." ".$request->input('last_name');
@@ -115,7 +105,7 @@ class ActorController extends Controller
         return view('Actor.show')->with('actor', $actor);
     }
 
-    public function destroy ($id) 
+    public function destroy ($id)
     {
         $actor = Actor::destroy($id);
         return redirect("/actors");

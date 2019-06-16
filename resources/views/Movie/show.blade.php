@@ -34,14 +34,22 @@
         </div>
     </div>
 </div>
-<hr align="left" width="350px">
-<div class=" d-flex" style="margin-left : 70px">
-    <a href="/movies" class="btn btn-primary btn-lg" role ="button"><i class="fas fa-arrow-left"></i></a>
-    <a href="/movies/{{$movie->id}}/edit" class="btn btn-success btn-lg" style="margin-left : 15px"><i class="fas fa-edit"></i></i></a>
-    <form method="POST" action="{{$movie->id}}">
-        @method('DELETE')
-        @csrf
-        <button class = "btn btn-danger btn-lg" type="submit" value="BORRAR REGISTRO" style="margin-left : 15px"><i class="fas fa-trash-alt"></i></button>
-    </form>
-</div>
+@if (count($movie->actors) > 0)
+    <hr align="left" width="350px">
+    <div class=" d-flex" style="margin-left : 110px">
+        <a href="/movies" class="btn btn-primary btn-lg" role ="button"><i class="fas fa-arrow-left"></i></a>
+        <a href="/movies/{{$movie->id}}/edit" class="btn btn-success btn-lg" style="margin-left : 15px"><i class="fas fa-edit"></i></i></a>
+    </div>
+@else
+    <hr align="left" width="350px">
+    <div class=" d-flex" style="margin-left : 70px">
+        <a href="/movies" class="btn btn-primary btn-lg" role ="button"><i class="fas fa-arrow-left"></i></a>
+        <a href="/movies/{{$movie->id}}/edit" class="btn btn-success btn-lg" style="margin-left : 15px"><i class="fas fa-edit"></i></i></a>
+        <form method="POST" action="{{$movie->id}}">
+            @method('DELETE')
+            @csrf
+            <button class = "btn btn-danger btn-lg" type="submit" value="BORRAR REGISTRO" style="margin-left : 15px"><i class="fas fa-trash-alt"></i></button>
+        </form>
+    </div>
+@endif
 @endsection

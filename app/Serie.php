@@ -8,13 +8,13 @@ class Serie extends Model
 {
     protected $guarded = [];
 
-    public function fechaDeEstreno()
+    public function fechaDeEstreno ()
     {
         $fecha = explode(' ', $this->release_date);
         return $fecha[0];
     }
 
-    public function fechaDeFinal()
+    public function fechaDeFinal ()
     {
         $fecha = explode(' ', $this->end_date);
         return $fecha[0];
@@ -25,7 +25,8 @@ class Serie extends Model
         return $this->belongsTo(Genre::class);
     }
 
-    public function seasons () {
+    public function seasons ()
+    {
         return $this->HasMany(Season::class);
     }
 }

@@ -8,12 +8,12 @@ class Genre extends Model
 {
     protected $guarded = [];
 
-    public function movies()
+    public function movies ()
     {
         return $this->hasMany(Movie::class);
     }
 
-    public function series()
+    public function series ()
     {
         return $this->hasMany(Serie::class);
     }

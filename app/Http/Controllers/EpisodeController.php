@@ -6,49 +6,44 @@ use Illuminate\Http\Request;
 
 use App\Episode;
 
+use App\Season;
+
 class EpisodeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $seasons = Season::all();
+        return view('Episode.create')->with('seasons', $seasons);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $reglas = [
+            'title' => 'required|string|max:255',
+            'number' => 'required|integer',
+            'rating' => 'required',
+            'release_date' => 'required',
+            'season_id' => 'required|integer'
+        ];
+        $mensaje = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'integer' => 'El campo :attribute debe ser un numero entero.'
+        ];
+        $this->validate($request, $reglas, $mensaje);
+        $request->request->remove('submit');
+        $episode = new Episode($request->all());
+        $episode->save();
+        return view('/Episode.show')->with('episode', $episode);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $episode = Episode::find($id);
-        
         if(empty($episode)) {
             return redirect()
                 ->back()
@@ -57,37 +52,42 @@ class EpisodeController extends Controller
         return view('Episode.show')->with('episode', $episode);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $episode = Episode::find($id);
+        if (empty($episode)) {
+            return redirect("/episodes");
+            }
+        return view('Episode.edit')->with('episode', $episode);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $episode = Episode::find($id);
+        $reglas = [
+            'title' => 'required|string|max:255',
+            'number' => 'required|integer',
+            'rating' => 'required',
+            'release_date' => 'required'
+        ];
+        $mensaje = [
+            'unique' => 'El campo :attribute ya está registrado.',
+            'required' => 'El campo :attribute es obligatorio.',
+            'integer' => 'El campo :attribute debe ser un numero entero.'
+        ];
+        $this->validate($request, $reglas, $mensaje);
+        $episode->title = $request->input('title') !== $episode->title ? $request->input('title') : $episode->title;
+        $episode->number = $request->input('number') !== $episode->number ? $request->input('number') : $episode->number;
+        $episode->release_date = $request->input('release_date') !== $episode->release_date ? $request->input('release_date') : $episode->release_date;
+        $episode->rating = $request->input('rating') !== $episode->rating ? $request->input('rating') : $episode->rating;
+        $episode->save();
+        return view('Episode.show')->with('episode', $episode);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $episode = Episode::find($id)->season;
+        $destroy = Episode::destroy($id);
+        return view('Season.show')->with('season', $episode);
     }
 }

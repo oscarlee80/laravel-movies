@@ -8,18 +8,19 @@ class Movie extends Model
 {
     protected $guarded = [];
     
-    public function fechaDeEstreno()
+    public function fechaDeEstreno ()
     {
         $fecha = explode(' ', $this->release_date);
         return $fecha[0];
     }
 
-    public function genre () 
+    public function genre ()
     {
         return $this->belongsTo(Genre::class);
     }
 
-    public function actors () {
+    public function actors ()
+    {
         return $this->belongsToMany(Actor::class);
     }
 
